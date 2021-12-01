@@ -17,18 +17,23 @@ import com.example.blocodenotas.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
 
+    private AnotacaoPreferencias preferencias;
+    private EditText editAnotacao;
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        editAnotacao = findViewById(R.id.editAnotacao);
+        preferencias = new AnotacaoPreferencias(getApplicationContext());
 
         //setSupportActionBar(binding.toolbar);
 
@@ -39,10 +44,26 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
            public void onClick(View view) {
-               Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+               //         .setAction("Action", null).show();
+
+               //Valida de foi digitado algo
+               String textoRecuperado = editAnotacao.getText().toString();
+               if( textoRecuperado.equals("") ){
+                   Snackbar.make(view, "Anotação está vazia", Snackbar.LENGTH_LONG).show();
+
+               }else{
+                   preferencias.salvarAnotacao(textoRecuperado);
+                   Snackbar.make(view, "Anotação salva!", Snackbar.LENGTH_LONG).show();
+               }
             }
         });
+
+        //Recuperar anotação
+        String anotacao = preferencias.recuperarAnotacao();
+        if(!anotacao.equals("")){
+            editAnotacao.setText(anotacao);
+        }
         }
 
     @Override

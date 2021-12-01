@@ -5,7 +5,8 @@
     <color name="purple_700">#531B05</color>
     <color name="teal_200">#933314</color>
     <color name="teal_700">#652616</color>
-    <color name="black">#FF000000</color>
+    <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="alpha">#00FFFFFF</color>
+    <color name="PageColor2">#FFFCC6</color>
 </resources>
